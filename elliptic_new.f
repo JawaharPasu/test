@@ -229,46 +229,7 @@
 	return
 	end subroutine
 !---------------------------------------------------------------------------
-	subroutine lsor
-	implicit none
-	integer M,N
-	parameter(M=21)
-	parameter(N=41)
-	integer i,j,k
-	double precision l,h,delx,dely,beta,x,y,eva,tend,om,tat
-	double precision TEMP(M,N),TEMP1(M,N),TEMP2(M,N),Val(M,N)
-	double precision a(M),b(M),c(M),d(M),nan,cas,tak
-	
-	common /yval1/ i,j,beta,eva,TEMP,TEMP1,TEMP2,om
 
-	do j=2,N-1
-
-	
-	d(2)=-(2*(1+beta**2))
-	cas =om*(beta**2)*(TEMP1(2,j-1)+TEMP(2,j+1))
-	c(2)=-((1-om)*(2*(1+beta**2))*TEMP(2,j))-cas
-	!write(*,*) c(1)
-	do i=3,M-1
-	a(i-1)=om
-	b(i)=om
-	d(i)=-(2*(1+beta**2))
-	d(i)=d(i)-(b(i)*a(i-1))/d(i-1)
-	tak=om*(beta**2)*(TEMP1(i,j-1)+TEMP(i,j+1))
-	nan=-((1-om)*(2*(1+beta**2))*TEMP(i,j))-tak
-	c(i)=nan-(b(i)*c(i-1))/d(i-1)
-		
-	end do
-	
-	TEMP1(20,j)=c(M-1)/d(M-1)  
-	
-	do i=M-2,2,-1
-
-	TEMP1(i,j)=(c(i)-(a(i)*TEMP1(i+1,j)))/d(i)
-	
-	end do
-	end do
-	return
-	end subroutine
 !---------------------------------------------------------------------------
 	subroutine adi
 	implicit none
